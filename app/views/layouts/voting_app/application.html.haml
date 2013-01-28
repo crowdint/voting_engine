@@ -1,0 +1,9 @@
+!!!
+%html
+%head
+  %title VotingApp
+  = stylesheet_link_tag    "voting_app/application", :media => "all"
+  = javascript_include_tag "voting_app/application"
+  = csrf_meta_tags
+%body
+  = yield
