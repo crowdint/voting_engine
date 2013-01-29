@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130129223010) do
+ActiveRecord::Schema.define(:version => 20130129234822) do
 
   create_table "votes", :force => true do |t|
     t.integer  "votable_id"
@@ -32,10 +32,19 @@ ActiveRecord::Schema.define(:version => 20130129223010) do
   create_table "voting_app_submissions", :force => true do |t|
     t.text     "description"
     t.datetime "accepted_at"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "state"
+    t.integer  "cached_votes_total", :default => 0
+    t.integer  "cached_votes_score", :default => 0
+    t.integer  "cached_votes_up",    :default => 0
+    t.integer  "cached_votes_down",  :default => 0
   end
+
+  add_index "voting_app_submissions", ["cached_votes_down"], :name => "index_voting_app_submissions_on_cached_votes_down"
+  add_index "voting_app_submissions", ["cached_votes_score"], :name => "index_voting_app_submissions_on_cached_votes_score"
+  add_index "voting_app_submissions", ["cached_votes_total"], :name => "index_voting_app_submissions_on_cached_votes_total"
+  add_index "voting_app_submissions", ["cached_votes_up"], :name => "index_voting_app_submissions_on_cached_votes_up"
 
   create_table "voting_app_users", :force => true do |t|
     t.string   "name"

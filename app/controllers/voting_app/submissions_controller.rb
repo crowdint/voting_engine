@@ -2,7 +2,7 @@ module VotingApp
   class SubmissionsController < ApplicationController
 
     def index
-      @submissions = Submission.all
+      @submissions = Submission.submitted
     end
 
     def show

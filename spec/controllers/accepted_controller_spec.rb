@@ -6,7 +6,7 @@ module VotingApp
     describe 'GET :index' do
       before do
         Submission.create(description: 'foo')
-        Submission.create(description: 'bar', accepted_at: 'Mon, 28 Jan 2013 22:12:08 UTC +00:00')
+        Submission.create(description: 'bar').accept!
       end
 
       it 'shows accepted submissions list' do
@@ -17,11 +17,10 @@ module VotingApp
                 "id": 2,
                 "description": "bar",
                 "created_at": "",
-                "accepted_at": "2013-01-28T22:12:08Z",
                 "votes": 0
               }]
             )
-        expect(response.body).to be_json_eql expected_response
+        expect(response.body).to be_json_eql(expected_response).excluding(:accepted_at)
         response.body['votes'].to_i.should_not < 0
       end
     end
