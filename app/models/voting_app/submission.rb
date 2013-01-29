@@ -1,9 +1,9 @@
+require 'acts_as_votable'
+
 module VotingApp
   class Submission < ActiveRecord::Base
     attr_accessible :accepted_at, :description
 
-    def votes
-      0
-    end
+    acts_as_votable
   end
 end

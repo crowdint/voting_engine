@@ -2,6 +2,9 @@ require 'spec_helper'
 
 module VotingApp
   describe SubmissionsController do
+
+    render_views
+
     describe 'POST :create' do
       it 'creates a submission' do
         post :create, submission: { description: 'foo bar' }, format: :json
@@ -17,6 +20,7 @@ module VotingApp
         )
 
         expect(response.body).to be_json_eql expected_response
+        expect(response.status).to be 201
       end
     end
 
@@ -77,24 +81,31 @@ module VotingApp
     end
 
     describe 'GET :show' do
-      before do
-        Submission.create(description: 'foo')
+
+      context 'When submission exists' do
+        before do
+          Submission.create(description: 'foo')
+        end
+
+        it 'shows a given submission in detail' do
+          get :show, id: 1, format: :json
+          expected_response = %(
+            {
+              "id": 1,
+              "description": "foo",
+              "created_at": "",
+              "accepted_at": null,
+              "votes": 0
+            }
+          )
+          expect(response.body).to be_json_eql expected_response
+        end
       end
 
-      it 'shows a given submission in detail' do
-        get :show, id: 1, format: :json
-
-        expected_response = %(
-          {
-            "id": 1,
-            "description": "foo",
-            "created_at": "",
-            "accepted_at": null,
-            "votes": 0
-          }
-        )
-
-        expect(response.body).to be_json_eql expected_response
+      context "When submission doesn't exist" do
+        it 'shows a given submission in detail' do
+          expect{get :show, id: 1, format: :json}.to raise_error(ActiveRecord::RecordNotFound)
+        end
       end
     end
   end

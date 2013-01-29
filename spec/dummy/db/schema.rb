@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130128223404) do
+ActiveRecord::Schema.define(:version => 20130129180551) do
 
   create_table "votes", :force => true do |t|
     t.integer  "votable_id"
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(:version => 20130128223404) do
     t.datetime "accepted_at"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "voting_app_users", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

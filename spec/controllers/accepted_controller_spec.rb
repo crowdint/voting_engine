@@ -2,6 +2,7 @@ require 'spec_helper'
 
 module VotingApp
   describe AcceptedController do
+    render_views
     describe 'GET :index' do
       before do
         Submission.create(description: 'foo')
@@ -21,6 +22,7 @@ module VotingApp
               }]
             )
         expect(response.body).to be_json_eql expected_response
+        response.body['votes'].to_i.should_not < 0
       end
     end
   end
