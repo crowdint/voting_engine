@@ -4,6 +4,8 @@ module VotingApp
   class Submission < ActiveRecord::Base
     attr_accessible :accepted_at, :description
 
+    validates :description, presence: true
+
     acts_as_votable
 
     state_machine initial: :submitted do
