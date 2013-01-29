@@ -28,7 +28,6 @@ Mount
     
  
 ## API
-<<<<<<< Updated upstream
 - ###Get a list of submissions
 
     - ##### Definition
@@ -147,9 +146,6 @@ Mount
 					votes: 10
 				}
 			]
-=======
-
->>>>>>> Stashed changes
 
 
 ## License
