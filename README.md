@@ -1,6 +1,7 @@
 #Voting App
 
 ## Installation
+___
 
 Gemfile
 
@@ -26,8 +27,12 @@ Mount
 
     mount VotingApp::Engine => '/voting_app'
     
- 
+##Accepting Submissions
+___
+By default a submission is accepted when it reaches 10 upvotes, but you can change it by setting the VOTES_LIMIT environment variable
+   
 ## API
+___
 - ###Get a list of submissions
 
     - ##### Definition
