@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ['Crowd Interactive', 'Ivan Calderon', 'Herman Moreno']
   s.email       = %w(opensource@crowdint.com ivan.calderon@crowdint.com herman.moreno@crowdint.com)
   s.homepage    = 'http://github.com/crowdint/voting_engine'
-  s.summary     = "TODO: Summary of VotingApp."
-  s.description = "TODO: Description of VotingApp."
+  s.summary     = "Allows you to easily implement a voting system in your application"
+  s.description = "Allows you to easily implement a voting system in your application"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
