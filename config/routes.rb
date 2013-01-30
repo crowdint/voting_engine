@@ -5,6 +5,6 @@ VotingApp::Engine.routes.draw do
     resources :votes, only: [:create]
   end
 
-  match 'submissions/accepted', to: 'accepted#index', format: :json
+  match 'accepted', to: 'accepted#index', format: :json
 
 end
