@@ -3,6 +3,7 @@ module VotingApp
 
     def index
       @submissions = Submission.submitted.page params[:page] || 1
+      render status: :not_found, nothing: true if @submissions.empty?
     end
 
     def show
