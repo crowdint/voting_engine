@@ -26,11 +26,11 @@ module VotingApp
 
     class << self
       def accepted
-        with_state :accepted
+        with_state(:accepted).order('accepted_at DESC')
       end
 
       def submitted
-        with_state :submitted
+        with_state(:submitted).order('created_at DESC')
       end
     end
 

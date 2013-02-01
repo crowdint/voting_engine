@@ -36,14 +36,14 @@ module VotingApp
         expected_response = %(
           [{
             "id": 1,
-            "description": "foo",
+            "description": "bar",
             "created_at": "",
             "accepted_at": null,
             "votes": 0
           },
           {
             "id": 2,
-            "description": "bar",
+            "description": "foo",
             "created_at": "",
             "accepted_at": null,
             "votes": 0
