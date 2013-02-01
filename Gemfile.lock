@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:supherman/acts_as_votable.git
+  remote: git://github.com/supherman/acts_as_votable.git
   revision: 3973f2f1be14f5fe155d676a2ff198e21094f94d
   branch: sti-voter
   specs:

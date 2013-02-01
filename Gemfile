@@ -8,7 +8,7 @@ gemspec
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
 gem 'acts_as_votable',
-    git: 'git@github.com:supherman/acts_as_votable.git',
+    git: 'git://github.com/supherman/acts_as_votable.git',
     branch: 'sti-voter'
 gem 'pry'
 gem 'rabl'
