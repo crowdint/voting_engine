@@ -2,7 +2,7 @@ module VotingApp
   class SubmissionsController < ApplicationController
 
     def index
-      @submissions = Submission.submitted
+      @submissions = Submission.submitted.page params[:page] || 1
     end
 
     def show

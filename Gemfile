@@ -11,6 +11,7 @@ gem 'acts_as_votable',
     git: 'git://github.com/supherman/acts_as_votable.git',
     branch: 'sti-voter'
 gem 'pry'
+gem 'kaminari'
 gem 'rabl'
 
 # Declare any dependencies that are still in development here instead of in
