@@ -63,7 +63,7 @@ module VotingApp
       end
 
       def accepted
-        with_state(:promoted).order('accepted_at DESC')
+        with_state(:accepted).order('accepted_at DESC')
       end
 
       def rejected
