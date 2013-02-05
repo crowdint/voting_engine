@@ -6,21 +6,31 @@ module VotingApp
     render_views
 
     describe 'POST :create' do
-      it 'creates a submission' do
+      let(:user) { User.create }
+
+      before do
+        controller.stub current_user: user
         post :create, submission: { description: 'foo bar' }, format: :json
+      end
+
+      it 'creates a submission' do
 
         expected_response = %(
-          {
-            "id": 1,
-            "description": "foo bar",
-            "created_at": "",
-            "accepted_at": null,
-            "votes": 0
-          }
-        )
+        {
+          "id": 1,
+          "description": "foo bar",
+          "created_at": "",
+          "accepted_at": null,
+          "votes": 0
+        }
+      )
 
         expect(response.body).to be_json_eql expected_response
         expect(response.status).to be 201
+      end
+
+      it 'should belong to the current user' do
+        expect(Submission.last.user_id).to be user.id
       end
     end
 

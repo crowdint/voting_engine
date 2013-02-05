@@ -3,7 +3,9 @@ require 'state_machine'
 
 module VotingApp
   class Submission < ActiveRecord::Base
-    attr_accessible :accepted_at, :description
+    attr_accessible :accepted_at, :description, :user_id
+
+    belongs_to :user
 
     validates :description, presence: true
 
