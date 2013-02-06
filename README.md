@@ -133,7 +133,7 @@ ___
 - ###Rejecting Submissions
   - ##### Definition
 			
-			POST /submissions/:id/rejecting
+			POST /submissions/:id/reject
 			
   - ##### Response example
 	
