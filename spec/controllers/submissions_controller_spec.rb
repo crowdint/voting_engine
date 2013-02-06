@@ -167,31 +167,31 @@ module VotingApp
       end
     end
 
-    describe 'PUT :update' do
-      let(:submission) { Submission.create(description: 'foo') }
+    #describe 'PUT :update' do
+    #  let(:submission) { Submission.create(description: 'foo') }
+    #
+    #  before do
+    #    Submission.should_receive(:find).and_return submission
+    #  end
+    #
+    #  it 'updates a given submission' do
+    #    expect do
+    #      put :update, submission: { description: 'bar' }, id: 1, format: :json
+    #    end.to change{submission.description}.from('foo').to('bar')
+    #  end
+    #end
 
-      before do
-        Submission.should_receive(:find).and_return submission
-      end
-
-      it 'updates a given submission' do
-        expect do
-          put :update, submission: { description: 'bar' }, id: 1, format: :json
-        end.to change{submission.description}.from('foo').to('bar')
-      end
-    end
-
-    describe 'DELETE :destroy' do
-      before do
-        Submission.create(description: 'foo')
-      end
-
-      it 'destroys a given submission' do
-        expect do
-          delete :destroy, id: 1, format: :json
-        end.to change{Submission.count}.from(1).to(0)
-      end
-    end
+    #describe 'DELETE :destroy' do
+    #  before do
+    #    Submission.create(description: 'foo')
+    #  end
+    #
+    #  it 'destroys a given submission' do
+    #    expect do
+    #      delete :destroy, id: 1, format: :json
+    #    end.to change{Submission.count}.from(1).to(0)
+    #  end
+    #end
 
     describe 'GET :show' do
 

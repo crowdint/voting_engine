@@ -21,18 +21,18 @@ module VotingApp
       end
     end
 
-    def update
-      @submission = Submission.find(params[:id])
-      if @submission.update_attributes(params[:submission])
-        render status: :no_content, nothing: true
-      else
-        render status: :unprocessable_entity, nothing: true
-      end
-    end
-
-    def destroy
-      @submission = Submission.destroy(params[:id])
-      render status: :no_content, nothing: true
-    end
+    #def update
+    #  @submission = Submission.find(params[:id])
+    #  if @submission.update_attributes(params[:submission])
+    #    render status: :no_content, nothing: true
+    #  else
+    #    render status: :unprocessable_entity, nothing: true
+    #  end
+    #end
+    #
+    #def destroy
+    #  @submission = Submission.destroy(params[:id])
+    #  render status: :no_content, nothing: true
+    #end
   end
 end
