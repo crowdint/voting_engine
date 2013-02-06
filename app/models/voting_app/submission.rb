@@ -20,19 +20,19 @@ module VotingApp
       state :rejected
       state :submitted
 
-      before_transition on: :accepted do |submission, transition|
+      before_transition on: :accept do |submission, transition|
         submission.accepted_at ||= Time.now
       end
 
-      before_transition on: :done do |submission, transition|
+      before_transition on: :complete do |submission, transition|
         submission.done_at ||= Time.now
       end
 
-      before_transition on: :promoted do |submission, transition|
+      before_transition on: :promote do |submission, transition|
         submission.promoted_at ||= Time.now
       end
 
-      before_transition on: :rejected do |submission, transition|
+      before_transition on: :reject do |submission, transition|
         submission.rejeted_at ||= Time.now
       end
 
