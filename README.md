@@ -112,45 +112,45 @@ ___
 - ### Voting for a submission
 	- ##### Definition
 			
-			POST /submissions/:id/vote
+				POST /submissions/:id/vote
 			
 	- ##### Response example
 	
-			{
-				votes: 10
-			}
+				{
+					votes: 10
+				}
 			
 - ###Accepting Submissions
   - ##### Definition
 			
-		POST /submissions/:id/accept
+			POST /submissions/:id/accept
 			
   - ##### Response example
 	
-		{
-			votes: 10
-		}
+			{
+				votes: 10
+			}
 - ###Rejecting Submissions
   - ##### Definition
 			
-		POST /submissions/:id/rejecting
+			POST /submissions/:id/rejecting
 			
   - ##### Response example
 	
-		{
-			votes: 10
-		}
+			{
+				votes: 10
+			}
 - ###Completing Submissions
   A submission can only be marked as done after being accepted
   - ##### Definition
 			
-		POST /submissions/:id/complete
+			POST /submissions/:id/complete
 			
   - ##### Response example
 	
-		{
-			votes: 10
-		}
+			{
+				votes: 10
+			}
 
 - ### Get a list of promoted submissions
 	- ##### Definition
