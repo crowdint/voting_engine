@@ -33,7 +33,7 @@ module VotingApp
       end
 
       before_transition on: :reject do |submission, transition|
-        submission.rejeted_at ||= Time.now
+        submission.rejected_at ||= Time.now
       end
 
       event :accept do
