@@ -26,10 +26,18 @@ Mount
     #
 
     mount VotingApp::Engine => '/voting_app'
-    
-##Accepting Submissions
+
+##Promoted Submissions
 ___
-By default a submission is accepted when it reaches 10 upvotes, but you can change it by setting the VOTES_LIMIT environment variable
+By default a submission gets promoted when it reaches 10 upvotes, but you can change it by setting the VOTES_LIMIT environment variable
+
+##Promoted Submissions Actions
+---
+Once a submission has been promoted an admin user will be able to perform actions on it, such as:
+
+- Accept
+- Reject
+- Complete
    
 ## API
 ___
@@ -46,6 +54,9 @@ ___
 					id: 1
 					description: 'lorem ipsum ...',
 					created_at: '2011-07-14 19:43:37 +0100',
+					promoted_at: null,
+					done_at: null,
+					rejected_at: null,
 					accepted_at: null,
 					votes: 10
 				},
@@ -53,6 +64,9 @@ ___
 					id: 2
 					description: 'lorem ipsum ...',
 					created_at: '2011-07-14 19:43:37 +0100',
+					promoted_at: null,
+					done_at: null,
+					rejected_at: null,
 					accepted_at: null,
 					votes: 10
 				}
@@ -69,8 +83,11 @@ ___
 			{
 				id: 1
 				description: 'lorem ipsum ...',
-				created_at: '',
-				accepted_at: '',
+				created_at: '2011-07-14 19:43:37 +0100',
+				promoted_at: null,
+				done_at: null,
+				rejected_at: null,
+				accepted_at: null,
 				votes: 10
 			}
 - ### Create a new submission
@@ -84,54 +101,61 @@ ___
 			{
 				id: 1
 				description: 'lorem ipsum ...',
-				created_at: '',
-				accepted_at: '',
+				created_at: '2011-07-14 19:43:37 +0100',
+				promoted_at: null,
+				done_at: null,
+				rejected_at: null,
+				accepted_at: null,
 				votes: 10
 			}
+			
+- ### Voting for a submission
+	- ##### Definition
+			
+			POST /submissions/:id/vote
+			
+	- ##### Response example
+	
+			{
+				votes: 10
+			}
+			
+- ###Accepting Submissions
+  - ##### Definition
+			
+		POST /submissions/:id/accept
+			
+  - ##### Response example
+	
+		{
+			votes: 10
+		}
+- ###Rejecting Submissions
+  - ##### Definition
+			
+		POST /submissions/:id/rejecting
+			
+  - ##### Response example
+	
+		{
+			votes: 10
+		}
+- ###Completing Submissions
+  A submission can only be marked as done after being accepted
+  - ##### Definition
+			
+		POST /submissions/:id/complete
+			
+  - ##### Response example
+	
+		{
+			votes: 10
+		}
 
-- ### Delete a submission
+- ### Get a list of promoted submissions
 	- ##### Definition
 			
-			DELETE /submissions/:id
-
-			
-	- ##### Response example
-	
-			{
-				id: 1
-				description: 'lorem ipsum ...',
-				created_at: '',
-				accepted_at: '',
-				votes: 10
-			} 
-- ### Edit a submission
-	- ##### Definition
-			
-			PUT /submissions/:id
-			
-	- ##### Response example
-	
-			{
-				id: 1
-				description: 'lorem ipsum ...',
-				created_at: '',
-				accepted_at: '',
-				votes: 10
-			}
-- ### Vote for a submission
-	- ##### Definition
-			
-			POST /submissions/:id/votes
-			
-	- ##### Response example
-	
-			{
-				votes: 10
-			}
-- ### Get a list of accepted submissions
-	- ##### Definition
-			
-			GET /accepted
+			GET /submissions/promoted
 			
 	- ##### Response example
 	
@@ -140,18 +164,113 @@ ___
 					id: 1
 					description: 'lorem ipsum ...',
 					created_at: '2011-07-14 19:43:37 +0100',
-					accepted_at: '2011-08-24 19:43:37 +0100',
+					promoted_at: '2011-07-24 19:43:37 +0100',
+					done_at: null,
+					rejected_at: null,
+					accepted_at: null,
 					votes: 10
 				},
 				{
 					id: 2
 					description: 'lorem ipsum ...',
 					created_at: '2011-07-14 19:43:37 +0100',
-					accepted_at: '2011-07-24 19:43:37 +0100',
+					promoted_at: '2011-07-24 19:43:37 +0100',
+					done_at: null,
+					rejected_at: null,
+					accepted_at: null,
 					votes: 10
 				}
 			]
 
+- ### Get a list of accepted submissions
+	- ##### Definition
+			
+			GET /submissions/accepted
+			
+	- ##### Response example
+	
+			[
+				{
+					id: 1
+					description: 'lorem ipsum ...',
+					created_at: '2011-07-14 19:43:37 +0100',
+					promoted_at: '2011-07-24 19:43:37 +0100',
+					done_at: null,
+					rejected_at: null,
+					accepted_at: '2011-07-24 20:43:37 +0100',
+					votes: 10
+				},
+				{
+					id: 2
+					description: 'lorem ipsum ...',
+					created_at: '2011-07-14 19:43:37 +0100',
+					promoted_at: '2011-07-24 19:43:37 +0100',
+					done_at: null,
+					rejected_at: null,
+					accepted_at: '2011-07-24 20:43:37 +0100',
+					votes: 10
+				}
+			]
+
+- ### Get a list of rejected submissions
+	- ##### Definition
+			
+			GET /submissions/rejected
+			
+	- ##### Response example
+	
+			[
+				{
+					id: 1
+					description: 'lorem ipsum ...',
+					created_at: '2011-07-14 19:43:37 +0100',
+					promoted_at: '2011-07-24 19:43:37 +0100',
+					done_at: null,
+					rejected_at: '2011-07-24 20:43:37 +0100',
+					accepted_at: null,
+					votes: 10
+				},
+				{
+					id: 2
+					description: 'lorem ipsum ...',
+					created_at: '2011-07-14 19:43:37 +0100',
+					promoted_at: '2011-07-24 19:43:37 +0100',
+					done_at: null,
+					rejected_at: '2011-07-24 20:43:37 +0100',
+					accepted_at: null,
+					votes: 10
+				}
+			]
+
+- ### Get a list of completed submissions
+	- ##### Definition
+			
+			GET /submissions/done
+			
+	- ##### Response example
+	
+			[
+				{
+					id: 1
+					description: 'lorem ipsum ...',
+					created_at: '2011-07-14 19:43:37 +0100',
+					promoted_at: '2011-07-24 19:43:37 +0100',
+					done_at: '2011-07-24 22:43:37 +0100',
+					rejected_at: null,
+					accepted_at: '2011-07-24 20:43:37 +0100',
+					votes: 10
+				},
+				{
+					id: 2
+					description: 'lorem ipsum ...',
+					created_at: '2011-07-14 19:43:37 +0100',
+					promoted_at: '2011-07-24 19:43:37 +0100',
+					done_at: '2011-07-24 22:43:37 +0100',
+					rejected_at: null,
+					accepted_at: '2011-07-24 20:43:37 +0100',
+					votes: 10
+				}
+			]
 
 ## License
 
