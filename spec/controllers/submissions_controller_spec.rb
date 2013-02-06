@@ -5,6 +5,12 @@ module VotingApp
 
     render_views
 
+    before do
+      JsonSpec.configure do
+        exclude_keys 'created_at', 'updated_at', 'accepted_at', 'done_at', 'promoted_at', 'rejected_at'
+      end
+    end
+
     describe 'POST :create' do
       let(:user) { User.create }
 
@@ -35,32 +41,129 @@ module VotingApp
     end
 
     describe 'GET :index' do
-      before do
-        Submission.create(description: 'foo')
-        Submission.create(description: 'bar')
+      context 'Without explicit state' do
+        before do
+          Submission.create(description: 'foo')
+          Submission.create(description: 'bar')
+        end
+
+        it 'shows submissions list' do
+          get :index, format: :json
+
+          expected_response = %(
+            [{
+              "id": 2,
+              "description": "bar",
+              "created_at": "",
+              "accepted_at": null,
+              "votes": 0
+            },
+            {
+              "id": 1,
+              "description": "foo",
+              "created_at": "",
+              "accepted_at": null,
+              "votes": 0
+            }]
+          )
+
+          expect(response.body).to be_json_eql expected_response
+        end
       end
 
-      it 'shows submissions list' do
-        get :index, format: :json
+      context 'When accepted state' do
+        before do
+          Submission.create(description: 'foo')
+          s = Submission.create(description: 'bar')
+          s.promote!
+          s.accept!
+        end
 
-        expected_response = %(
-          [{
-            "id": 1,
-            "description": "bar",
-            "created_at": "",
-            "accepted_at": null,
-            "votes": 0
-          },
-          {
-            "id": 2,
-            "description": "foo",
-            "created_at": "",
-            "accepted_at": null,
-            "votes": 0
-          }]
-        )
+        it 'shows accepted submissions list' do
+          get :index, format: :json, state: 'accepted'
 
-        expect(response.body).to be_json_eql expected_response
+          expected_response = %(
+              [{
+                "id": 2,
+                "description": "bar",
+                "created_at": "",
+                "votes": 0
+              }]
+            )
+          expect(response.body).to be_json_eql(expected_response)
+          response.body['votes'].to_i.should_not < 0
+        end
+      end
+
+      context 'When done state' do
+        before do
+          Submission.create(description: 'foo')
+          s = Submission.create(description: 'bar')
+          s.promote!
+          s.accept!
+          s.complete!
+        end
+
+        it 'shows done submissions list' do
+          get :index, format: :json, state: 'done'
+
+          expected_response = %(
+              [{
+                "id": 2,
+                "description": "bar",
+                "created_at": "",
+                "votes": 0
+              }]
+            )
+          expect(response.body).to be_json_eql(expected_response)
+          response.body['votes'].to_i.should_not < 0
+        end
+      end
+
+      context 'When promoted state' do
+        before do
+          Submission.create(description: 'foo')
+          Submission.create(description: 'bar').promote!
+        end
+
+        it 'shows promoted submissions list' do
+          get :index, format: :json, state: 'promoted'
+
+          expected_response = %(
+              [{
+                "id": 2,
+                "description": "bar",
+                "created_at": "",
+                "votes": 0
+              }]
+            )
+          expect(response.body).to be_json_eql(expected_response)
+          response.body['votes'].to_i.should_not < 0
+        end
+      end
+
+      context 'When rejected state' do
+        before do
+          Submission.create(description: 'foo')
+          s = Submission.create(description: 'bar')
+          s.promote!
+          s.reject!
+        end
+
+        it 'shows rejected submissions list' do
+          get :index, format: :json, state: 'rejected'
+
+          expected_response = %(
+              [{
+                "id": 2,
+                "description": "bar",
+                "created_at": "",
+                "votes": 0
+              }]
+            )
+          expect(response.body).to be_json_eql(expected_response)
+          response.body['votes'].to_i.should_not < 0
+        end
       end
     end
 
@@ -113,7 +216,7 @@ module VotingApp
       end
 
       context "When submission doesn't exist" do
-        it 'shows a given submission in detail' do
+        it 'should throw ActiveRecord::RecordNotFound Exception' do
           expect{get :show, id: 1, format: :json}.to raise_error(ActiveRecord::RecordNotFound)
         end
       end

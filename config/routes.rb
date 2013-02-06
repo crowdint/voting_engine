@@ -2,9 +2,15 @@ VotingApp::Engine.routes.draw do
   root to: 'home#show'
 
   resources :submissions, format: :json do
-    resources :votes, only: [:create]
+    match ':submission_action', to: 'actions#create', format: :json,
+      constraints: { submission_action: /(vote|accept|reject|complete)/ },
+      via: :post,
+      as: 'actions'
   end
 
-  match 'promoted', to: 'promoted#index', format: :json
+  match 'submissions/:state', to: 'submissions#index', format: :json,
+    constraints: { state: /(accepted|done|promoted|rejected)/ },
+    as: 'submissions_by_state',
+    via: :get
 
 end

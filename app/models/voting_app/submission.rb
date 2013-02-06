@@ -41,7 +41,7 @@ module VotingApp
       end
 
       event :complete do
-        transition promoted: :done
+        transition accepted: :done
       end
 
       event :promote do
