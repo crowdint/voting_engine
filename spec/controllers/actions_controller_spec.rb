@@ -5,6 +5,21 @@ module VotingApp
 
     render_views
 
+    describe 'voting for your own submissions' do
+      let(:user) { User.create }
+      let(:submission) { Submission.create description: 'foo', user_id: user.id }
+
+      before do
+        controller.stub current_user: user
+      end
+
+      it 'should not be able to vote' do
+        expect do
+          post :create, submission_id: submission.id, format: :json, submission_action: 'vote'
+        end.not_to change{ submission.reload.cached_votes_total }.from(0).to(1)
+      end
+    end
+
     describe 'POST :create as normal user' do
       let(:submission) { Submission.create(description: 'foo') }
 

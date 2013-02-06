@@ -3,7 +3,7 @@ module VotingApp
     class Vote
       def initialize(user, submission)
         @user       = user
-        @submission = submission
+        @submission = SubmissionPresenter.new(submission)
       end
 
       def perform
