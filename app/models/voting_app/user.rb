@@ -8,8 +8,5 @@ module VotingApp
 
     acts_as_voter
 
-    def become(klass)
-      update_column :type, klass.to_s
-    end
   end
 end
