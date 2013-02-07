@@ -25,6 +25,7 @@ module VotingApp
         {
           "id": 1,
           "description": "foo bar",
+          "state": "submitted",
           "created_at": "",
           "accepted_at": null,
           "votes": 0
@@ -54,6 +55,7 @@ module VotingApp
             [{
               "id": 2,
               "description": "bar",
+              "state": "submitted",
               "created_at": "",
               "accepted_at": null,
               "votes": 0
@@ -61,6 +63,7 @@ module VotingApp
             {
               "id": 1,
               "description": "foo",
+              "state": "submitted",
               "created_at": "",
               "accepted_at": null,
               "votes": 0
@@ -86,6 +89,7 @@ module VotingApp
               [{
                 "id": 2,
                 "description": "bar",
+                "state": "accepted",
                 "created_at": "",
                 "votes": 0
               }]
@@ -110,6 +114,7 @@ module VotingApp
           expected_response = %(
               [{
                 "id": 2,
+                "state": "done",
                 "description": "bar",
                 "created_at": "",
                 "votes": 0
@@ -132,6 +137,7 @@ module VotingApp
           expected_response = %(
               [{
                 "id": 2,
+                "state": "promoted",
                 "description": "bar",
                 "created_at": "",
                 "votes": 0
@@ -156,6 +162,7 @@ module VotingApp
           expected_response = %(
               [{
                 "id": 2,
+                "state": "rejected",
                 "description": "bar",
                 "created_at": "",
                 "votes": 0
@@ -205,6 +212,7 @@ module VotingApp
           expected_response = %(
             {
               "id": 1,
+              "state": "submitted",
               "description": "foo",
               "created_at": "",
               "accepted_at": null,
