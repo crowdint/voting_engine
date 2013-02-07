@@ -9,7 +9,7 @@ VotingApp::Engine.routes.draw do
   end
 
   match 'submissions/:state', to: 'submissions#index', format: :json,
-    constraints: { state: /(accepted|done|promoted|rejected)/ },
+    constraints: { state: /(accepted|done|promoted|rejected|processed)/ },
     as: 'submissions_by_state',
     via: :get
 

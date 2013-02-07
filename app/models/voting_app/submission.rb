@@ -76,6 +76,10 @@ module VotingApp
         with_state(:submitted).order('created_at DESC')
       end
 
+      def processed
+        without_state(:submitted).order('created_at DESC')
+      end
+
     end
 
     def promote_submission
