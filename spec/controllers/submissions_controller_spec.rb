@@ -28,7 +28,8 @@ module VotingApp
           "state": "submitted",
           "created_at": "",
           "accepted_at": null,
-          "votes": 0
+          "votes": 0,
+          "mood": null
         }
       )
 
@@ -58,7 +59,8 @@ module VotingApp
               "state": "submitted",
               "created_at": "",
               "accepted_at": null,
-              "votes": 0
+              "votes": 0,
+              "mood": null
             },
             {
               "id": 1,
@@ -66,7 +68,8 @@ module VotingApp
               "state": "submitted",
               "created_at": "",
               "accepted_at": null,
-              "votes": 0
+              "votes": 0,
+              "mood": null
             }]
           )
 
@@ -91,7 +94,8 @@ module VotingApp
                 "description": "bar",
                 "state": "accepted",
                 "created_at": "",
-                "votes": 0
+                "votes": 0,
+                "mood": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -117,7 +121,8 @@ module VotingApp
                 "state": "done",
                 "description": "bar",
                 "created_at": "",
-                "votes": 0
+                "votes": 0,
+                "mood": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -140,7 +145,8 @@ module VotingApp
                 "state": "promoted",
                 "description": "bar",
                 "created_at": "",
-                "votes": 0
+                "votes": 0,
+                "mood": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -165,7 +171,8 @@ module VotingApp
                 "state": "rejected",
                 "description": "bar",
                 "created_at": "",
-                "votes": 0
+                "votes": 0,
+                "mood": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -216,7 +223,8 @@ module VotingApp
               "description": "foo",
               "created_at": "",
               "accepted_at": null,
-              "votes": 0
+              "votes": 0,
+              "mood": null
             }
           )
           expect(response.body).to be_json_eql expected_response
