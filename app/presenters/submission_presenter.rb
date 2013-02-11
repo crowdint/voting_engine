@@ -1,6 +1,6 @@
 class SubmissionPresenter < SimpleDelegator
-  def can_vote?(user)
-    self.user.id != user.id
+  def can_vote?(u)
+    self.user.id != u.id
   end
 
   def liked_by user

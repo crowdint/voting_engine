@@ -21,7 +21,8 @@ module VotingApp
     end
 
     describe 'POST :create as normal user' do
-      let(:submission) { Submission.create(description: 'foo') }
+      let(:user) { User.create }
+      let(:submission) { Submission.create(description: 'foo', user_id: user.id) }
 
       context 'When voting' do
         before do
@@ -73,8 +74,9 @@ module VotingApp
     end
 
     describe 'POST :create as admin user' do
-      let(:submission) { Submission.create(description: 'foo') }
       let(:user) { User.create }
+      let(:user2) { User.create }
+      let(:submission) { Submission.create(description: 'foo', user_id: user2.id) }
 
       before do
         user.stub :admin? => true
