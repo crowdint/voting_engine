@@ -4,7 +4,7 @@ module VotingApp
 
     def create
       @submission = Submission.find(params[:submission_id])
-      action = "VotingApp::Actions::#{params[:submission_action].camelize}".constantize.new(current_user, @submission)
+      action = "VotingApp::Actions::#{params[:submission_action].camelize}".constantize.new(current_user, @submission, params)
       action.perform
     end
 

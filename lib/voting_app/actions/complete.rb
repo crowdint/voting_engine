@@ -1,13 +1,16 @@
 module VotingApp
   module Actions
     class Complete
-      def initialize(user, submission)
+      def initialize(user, submission, options = {})
         @user       = user
         @submission = submission
+        @options    = options
       end
 
       def perform
-        @submission.complete
+        if @submission.complete
+          @submission.notify_completed @options
+        end
       end
     end
   end

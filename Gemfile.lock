@@ -13,6 +13,8 @@ PATH
       acts_as_votable (~> 0.5.0)
       haml-rails
       kaminari
+      pusher (~> 0.11.3)
+      pusher_rails
       rails (~> 3.2.11)
       state_machine
 
@@ -82,6 +84,10 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.3.1)
+    pusher (0.11.3)
+      multi_json (~> 1.0)
+      signature (~> 0.1.6)
+    pusher_rails (0.1.1)
     rabl (0.7.9)
       activesupport (>= 2.3.14)
       multi_json (~> 1.0)
@@ -125,6 +131,7 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
+    signature (0.1.6)
     slop (3.3.3)
     sprockets (2.2.2)
       hike (~> 1.2)

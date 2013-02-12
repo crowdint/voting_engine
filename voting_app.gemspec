@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 3.2.11"
   s.add_dependency "haml-rails"
   s.add_dependency "kaminari"
+  s.add_dependency "pusher", "~> 0.11.3"
+  s.add_dependency "pusher_rails"
   s.add_dependency "state_machine"
 
   s.add_development_dependency "sqlite3"

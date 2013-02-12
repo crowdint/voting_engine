@@ -3,6 +3,8 @@ require 'state_machine'
 
 module VotingApp
   class Submission < ActiveRecord::Base
+    include Notifications
+
     attr_accessible :accepted_at, :description, :user_id, :mood
 
     belongs_to :user
@@ -89,5 +91,6 @@ module VotingApp
     def enough_votes?
       votes.size >= Engine.config.votes_limit
     end
+
   end
 end

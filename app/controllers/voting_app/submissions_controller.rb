@@ -15,6 +15,7 @@ module VotingApp
       params[:submission].merge!({ user_id: current_user.id })
       @submission = Submission.create params[:submission]
       if @submission
+        @submission.notify_created(params)
         render status: :created
       else
         render status: :unprocessable_entity
