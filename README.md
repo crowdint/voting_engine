@@ -1,5 +1,7 @@
 #Voting App
 
+[![Build Status](https://travis-ci.org/crowdint/voting_engine.png?branch=master)](https://travis-ci.org/crowdint/voting_engine)
+
 ## Installation
 ___
 
