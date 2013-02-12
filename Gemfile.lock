@@ -150,6 +150,7 @@ DEPENDENCIES
   kaminari
   pry
   rabl
+  rake
   rspec-rails
   sqlite3
   voting_app!
