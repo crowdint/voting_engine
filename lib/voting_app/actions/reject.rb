@@ -1,15 +1,15 @@
 module VotingApp
   module Actions
     class Reject
-      def initialize(user, submission, options = {})
+      def initialize(user, request, options = {})
         @user       = user
-        @submission = submission
+        @request    = request
         @options    = options
       end
 
       def perform
-        if @submission.reject
-          @submission.notify_rejected @options
+        if @request.reject
+          @request.notify_rejected @options
         end
       end
     end

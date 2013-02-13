@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 module VotingApp
-  describe SubmissionPresenter do
+  describe RequestPresenter do
     let(:user) { User.create }
     let(:user2) { User.create }
-    let(:submission) { Submission.create description: 'foo', user_id: user.id }
+    let(:request) { Request.create description: 'foo', user_id: user.id }
 
-    subject { SubmissionPresenter.new submission }
+    subject { RequestPresenter.new request }
 
     describe '#can_vote?' do
       context 'When user is the owner' do

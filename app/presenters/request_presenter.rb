@@ -1,4 +1,4 @@
-class SubmissionPresenter < SimpleDelegator
+class RequestPresenter < SimpleDelegator
   def can_vote?(u)
     self.user.id != u.id
   end

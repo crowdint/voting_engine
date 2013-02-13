@@ -1,15 +1,15 @@
 module VotingApp
   module Actions
     class Accept
-      def initialize(user, submission, options = {})
+      def initialize(user, request, options = {})
         @user       = user
-        @submission = submission
+        @request    = request
         @options    = options
       end
 
       def perform
-        if @submission.accept
-          @submission.notify_accepted @options
+        if @request.accept
+          @request.notify_accepted @options
         end
       end
     end

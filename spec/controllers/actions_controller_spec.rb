@@ -5,9 +5,9 @@ module VotingApp
 
     render_views
 
-    describe 'voting for your own submissions' do
+    describe 'voting for your own requests' do
       let(:user) { User.create }
-      let(:submission) { Submission.create description: 'foo', user_id: user.id }
+      let(:request) { Request.create description: 'foo', user_id: user.id }
 
       before do
         controller.stub current_user: user
@@ -15,59 +15,59 @@ module VotingApp
 
       it 'should not be able to vote' do
         expect do
-          post :create, submission_id: submission.id, format: :json, submission_action: 'vote'
-        end.not_to change{ submission.reload.cached_votes_total }.from(0).to(1)
+          post :create, request_id: request.id, format: :json, request_action: 'vote'
+        end.not_to change{ request.reload.cached_votes_total }.from(0).to(1)
       end
     end
 
     describe 'POST :create as normal user' do
       let(:user) { User.create }
-      let(:submission) { Submission.create(description: 'foo', user_id: user.id) }
+      let(:request) { Request.create(description: 'foo', user_id: user.id) }
 
       context 'When voting' do
         before do
-          Submission.should_receive(:find).and_return submission
+          Request.should_receive(:find).and_return request
         end
 
-        it 'should increment submission votes by one' do
+        it 'should increment request votes by one' do
           expect do
-            post :create, submission_id: 1, format: :json, submission_action: 'vote'
-          end.to change{ submission.count_votes_total }.by(1)
+            post :create, request_id: 1, format: :json, request_action: 'vote'
+          end.to change{ request.count_votes_total }.by(1)
         end
       end
 
       context 'When accepting' do
-        it 'should not modify the submission status' do
-          Submission.should_not_receive(:find)
-          post :create, submission_id: 1, format: :json, submission_action: 'accept'
+        it 'should not modify the request status' do
+          Request.should_not_receive(:find)
+          post :create, request_id: 1, format: :json, request_action: 'accept'
         end
 
         it 'should respond with an unauthorized status' do
-          post :create, submission_id: 1, format: :json, submission_action: 'accept'
+          post :create, request_id: 1, format: :json, request_action: 'accept'
           expect(response.status).to be 401
         end
       end
 
       context 'When rejecting' do
-        it 'should not modify the submission status' do
-          Submission.should_not_receive(:find)
-          post :create, submission_id: 1, format: :json, submission_action: 'reject'
+        it 'should not modify the request status' do
+          Request.should_not_receive(:find)
+          post :create, request_id: 1, format: :json, request_action: 'reject'
         end
 
         it 'should respond with an unauthorized status' do
-          post :create, submission_id: 1, format: :json, submission_action: 'reject'
+          post :create, request_id: 1, format: :json, request_action: 'reject'
           expect(response.status).to be 401
         end
       end
 
       context 'When completing' do
-        it 'should not modify the submission status' do
-          Submission.should_not_receive(:find)
-          post :create, submission_id: 1, format: :json, submission_action: 'complete'
+        it 'should not modify the request status' do
+          Request.should_not_receive(:find)
+          post :create, request_id: 1, format: :json, request_action: 'complete'
         end
 
         it 'should respond with an unauthorized status' do
-          post :create, submission_id: 1, format: :json, submission_action: 'complete'
+          post :create, request_id: 1, format: :json, request_action: 'complete'
           expect(response.status).to be 401
         end
       end
@@ -76,56 +76,56 @@ module VotingApp
     describe 'POST :create as admin user' do
       let(:user) { User.create }
       let(:user2) { User.create }
-      let(:submission) { Submission.create(description: 'foo', user_id: user2.id) }
+      let(:request) { Request.create(description: 'foo', user_id: user2.id) }
 
       before do
         user.stub :admin? => true
         controller.stub current_user: user
-        Submission.should_receive(:find).and_return submission
+        Request.should_receive(:find).and_return request
       end
 
       context 'When voting' do
-        it 'should increment submission votes by one' do
+        it 'should increment request votes by one' do
           expect do
-            post :create, submission_id: 1, format: :json, submission_action: 'vote'
-          end.to change{ submission.count_votes_total }.by(1)
+            post :create, request_id: 1, format: :json, request_action: 'vote'
+          end.to change{ request.count_votes_total }.by(1)
         end
       end
 
       context 'When accepting' do
         before do
-          submission.promote!
+          request.promote!
         end
 
-        it 'should modify the submission status' do
+        it 'should modify the request status' do
           expect do
-            post :create, submission_id: 1, format: :json, submission_action: 'accept'
-          end.to change{ submission.state }.from('promoted').to('accepted')
+            post :create, request_id: 1, format: :json, request_action: 'accept'
+          end.to change{ request.state }.from('promoted').to('accepted')
         end
       end
 
       context 'When rejecting' do
         before do
-          submission.promote!
+          request.promote!
         end
 
-        it 'should modify the submission status' do
+        it 'should modify the request status' do
           expect do
-            post :create, submission_id: 1, format: :json, submission_action: 'reject'
-          end.to change{ submission.state }.from('promoted').to('rejected')
+            post :create, request_id: 1, format: :json, request_action: 'reject'
+          end.to change{ request.state }.from('promoted').to('rejected')
         end
       end
 
       context 'When completing' do
         before do
-          submission.promote!
-          submission.accept!
+          request.promote!
+          request.accept!
         end
 
-        it 'should modify the submission status' do
+        it 'should modify the request status' do
           expect do
-            post :create, submission_id: 1, format: :json, submission_action: 'complete'
-          end.to change{ submission.state }.from('accepted').to('done')
+            post :create, request_id: 1, format: :json, request_action: 'complete'
+          end.to change{ request.state }.from('accepted').to('done')
         end
       end
     end

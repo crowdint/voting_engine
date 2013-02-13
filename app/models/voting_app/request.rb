@@ -2,7 +2,7 @@ require 'acts_as_votable'
 require 'state_machine'
 
 module VotingApp
-  class Submission < ActiveRecord::Base
+  class Request < ActiveRecord::Base
     include Notifications
 
     attr_accessible :accepted_at, :description, :user_id, :mood
@@ -11,7 +11,7 @@ module VotingApp
 
     validates :description, presence: true
 
-    after_update :promote_submission
+    after_update :promote_request
 
     acts_as_votable
 
@@ -22,20 +22,20 @@ module VotingApp
       state :rejected
       state :submitted
 
-      before_transition on: :accept do |submission, transition|
-        submission.accepted_at ||= Time.now
+      before_transition on: :accept do |request, transition|
+        request.accepted_at ||= Time.now
       end
 
-      before_transition on: :complete do |submission, transition|
-        submission.done_at ||= Time.now
+      before_transition on: :complete do |request, transition|
+        request.done_at ||= Time.now
       end
 
-      before_transition on: :promote do |submission, transition|
-        submission.promoted_at ||= Time.now
+      before_transition on: :promote do |request, transition|
+        request.promoted_at ||= Time.now
       end
 
-      before_transition on: :reject do |submission, transition|
-        submission.rejected_at ||= Time.now
+      before_transition on: :reject do |request, transition|
+        request.rejected_at ||= Time.now
       end
 
       event :accept do
@@ -84,7 +84,7 @@ module VotingApp
 
     end
 
-    def promote_submission
+    def promote_request
       self.promote if self.enough_votes?
     end
 

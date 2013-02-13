@@ -1,15 +1,15 @@
 module VotingApp
   module Actions
     class Vote
-      def initialize(user, submission, options = {})
+      def initialize(user, request, options = {})
         @user       = user
-        @submission = SubmissionPresenter.new(submission)
+        @request    = RequestPresenter.new(request)
         @options    = options
       end
 
       def perform
-        if @submission.liked_by @user
-          @submission.notify_liked @options
+        if @request.liked_by @user
+          @request.notify_liked @options
         end
       end
     end

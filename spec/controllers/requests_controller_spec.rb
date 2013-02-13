@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module VotingApp
-  describe SubmissionsController do
+  describe RequestsController do
 
     render_views
 
@@ -16,10 +16,10 @@ module VotingApp
 
       before do
         controller.stub current_user: user
-        post :create, submission: { description: 'foo bar' }, format: :json
+        post :create, request: { description: 'foo bar' }, format: :json
       end
 
-      it 'creates a submission' do
+      it 'creates a request' do
 
         expected_response = %(
         {
@@ -38,18 +38,18 @@ module VotingApp
       end
 
       it 'should belong to the current user' do
-        expect(Submission.last.user_id).to be user.id
+        expect(Request.last.user_id).to be user.id
       end
     end
 
     describe 'GET :index' do
       context 'Without explicit state' do
         before do
-          Submission.create(description: 'foo')
-          Submission.create(description: 'bar')
+          Request.create(description: 'foo')
+          Request.create(description: 'bar')
         end
 
-        it 'shows submissions list' do
+        it 'shows requests list' do
           get :index, format: :json
 
           expected_response = %(
@@ -79,13 +79,13 @@ module VotingApp
 
       context 'When accepted state' do
         before do
-          Submission.create(description: 'foo')
-          s = Submission.create(description: 'bar')
+          Request.create(description: 'foo')
+          s = Request.create(description: 'bar')
           s.promote!
           s.accept!
         end
 
-        it 'shows accepted submissions list' do
+        it 'shows accepted requests list' do
           get :index, format: :json, state: 'accepted'
 
           expected_response = %(
@@ -105,14 +105,14 @@ module VotingApp
 
       context 'When done state' do
         before do
-          Submission.create(description: 'foo')
-          s = Submission.create(description: 'bar')
+          Request.create(description: 'foo')
+          s = Request.create(description: 'bar')
           s.promote!
           s.accept!
           s.complete!
         end
 
-        it 'shows done submissions list' do
+        it 'shows done requests list' do
           get :index, format: :json, state: 'done'
 
           expected_response = %(
@@ -132,11 +132,11 @@ module VotingApp
 
       context 'When promoted state' do
         before do
-          Submission.create(description: 'foo')
-          Submission.create(description: 'bar').promote!
+          Request.create(description: 'foo')
+          Request.create(description: 'bar').promote!
         end
 
-        it 'shows promoted submissions list' do
+        it 'shows promoted requests list' do
           get :index, format: :json, state: 'promoted'
 
           expected_response = %(
@@ -156,13 +156,13 @@ module VotingApp
 
       context 'When rejected state' do
         before do
-          Submission.create(description: 'foo')
-          s = Submission.create(description: 'bar')
+          Request.create(description: 'foo')
+          s = Request.create(description: 'bar')
           s.promote!
           s.reject!
         end
 
-        it 'shows rejected submissions list' do
+        it 'shows rejected requests list' do
           get :index, format: :json, state: 'rejected'
 
           expected_response = %(
@@ -209,12 +209,12 @@ module VotingApp
 
     describe 'GET :show' do
 
-      context 'When submission exists' do
+      context 'When request exists' do
         before do
-          Submission.create(description: 'foo')
+          Request.create(description: 'foo')
         end
 
-        it 'shows a given submission in detail' do
+        it 'shows a given request in detail' do
           get :show, id: 1, format: :json
           expected_response = %(
             {
@@ -231,7 +231,7 @@ module VotingApp
         end
       end
 
-      context "When submission doesn't exist" do
+      context "When request doesn't exist" do
         it 'should throw ActiveRecord::RecordNotFound Exception' do
           expect{get :show, id: 1, format: :json}.to raise_error(ActiveRecord::RecordNotFound)
         end
