@@ -13,6 +13,8 @@ module VotingApp
 
     after_update :promote_request
 
+    delegate :email, to: :user, allow_nil: nil
+
     acts_as_votable
 
     state_machine initial: :submitted do
