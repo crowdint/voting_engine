@@ -30,7 +30,7 @@ module VotingApp
           "accepted_at": null,
           "votes": 0,
           "email": "test@email.com",
-          "mood": null
+          "category": null
         }
       )
 
@@ -63,7 +63,7 @@ module VotingApp
               "accepted_at": null,
               "votes": 0,
               "email": "test@email.com",
-              "mood": null
+              "category": null
             },
             {
               "id": 1,
@@ -73,7 +73,7 @@ module VotingApp
               "accepted_at": null,
               "votes": 0,
               "email": "test@email.com",
-              "mood": null
+              "category": null
             }]
           )
 
@@ -100,7 +100,7 @@ module VotingApp
                 "created_at": "",
                 "votes": 0,
                 "email": "test@email.com",
-                "mood": null
+                "category": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -128,7 +128,7 @@ module VotingApp
                 "created_at": "",
                 "votes": 0,
                 "email": "test@email.com",
-                "mood": null
+                "category": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -153,7 +153,7 @@ module VotingApp
                 "created_at": "",
                 "votes": 0,
                 "email": "test@email.com",
-                "mood": null
+                "category": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -180,7 +180,7 @@ module VotingApp
                 "created_at": "",
                 "votes": 0,
                 "email": "test@email.com",
-                "mood": null
+                "category": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -233,7 +233,7 @@ module VotingApp
               "accepted_at": null,
               "votes": 0,
               "email": "test@email.com",
-              "mood": null
+              "category": null
             }
           )
           expect(response.body).to be_json_eql expected_response

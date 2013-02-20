@@ -5,7 +5,7 @@ module VotingApp
   class Request < ActiveRecord::Base
     include Notifications
 
-    attr_accessible :accepted_at, :description, :user_id, :mood
+    attr_accessible :accepted_at, :description, :user_id, :category
 
     belongs_to :user
 
