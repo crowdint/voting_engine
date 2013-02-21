@@ -4,8 +4,7 @@ module VotingApp
 
     def create
       @request = Request.find(params[:request_id])
-      action = "VotingApp::Actions::#{params[:request_action].camelize}".constantize.new(current_user, @request, params)
-      action.perform
+      RequestAction.create(current_user, @request, params).perform
     end
 
     private

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = VotingApp::VERSION
   s.authors     = ['Crowd Interactive', 'Ivan Calderon', 'Herman Moreno']
   s.email       = %w(opensource@crowdint.com ivan.calderon@crowdint.com herman.moreno@crowdint.com)
-  s.homepage    = 'http://github.com/crowdint/voting_engine'
+  s.homepage    = 'http://github.com/crowdint/voting_app'
   s.summary     = "Allows you to easily implement a voting system in your application"
   s.description = "Allows you to easily implement a voting system in your application"
 
