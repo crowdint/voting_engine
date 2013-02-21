@@ -12,7 +12,7 @@ module VotingApp
     end
 
     describe 'POST :create' do
-      let(:user) { User.create }
+      let(:user) { User.create(email:'test@email.com')}
 
       before do
         controller.stub current_user: user
@@ -29,7 +29,8 @@ module VotingApp
           "created_at": "",
           "accepted_at": null,
           "votes": 0,
-          "mood": null
+          "email": "test@email.com",
+          "category": null
         }
       )
 
@@ -43,10 +44,11 @@ module VotingApp
     end
 
     describe 'GET :index' do
+      let(:user) { User.create(email:'test@email.com')}
       context 'Without explicit state' do
         before do
-          Request.create(description: 'foo')
-          Request.create(description: 'bar')
+          Request.create(description: 'foo', user_id: user.id)
+          Request.create(description: 'bar', user_id: user.id)
         end
 
         it 'shows requests list' do
@@ -60,7 +62,8 @@ module VotingApp
               "created_at": "",
               "accepted_at": null,
               "votes": 0,
-              "mood": null
+              "email": "test@email.com",
+              "category": null
             },
             {
               "id": 1,
@@ -69,7 +72,8 @@ module VotingApp
               "created_at": "",
               "accepted_at": null,
               "votes": 0,
-              "mood": null
+              "email": "test@email.com",
+              "category": null
             }]
           )
 
@@ -79,8 +83,8 @@ module VotingApp
 
       context 'When accepted state' do
         before do
-          Request.create(description: 'foo')
-          s = Request.create(description: 'bar')
+          Request.create(description: 'foo', user_id: user.id)
+          s = Request.create(description: 'bar', user_id: user.id)
           s.promote!
           s.accept!
         end
@@ -95,7 +99,8 @@ module VotingApp
                 "state": "accepted",
                 "created_at": "",
                 "votes": 0,
-                "mood": null
+                "email": "test@email.com",
+                "category": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -105,8 +110,8 @@ module VotingApp
 
       context 'When done state' do
         before do
-          Request.create(description: 'foo')
-          s = Request.create(description: 'bar')
+          Request.create(description: 'foo', user_id: user.id)
+          s = Request.create(description: 'bar', user_id: user.id)
           s.promote!
           s.accept!
           s.complete!
@@ -122,7 +127,8 @@ module VotingApp
                 "description": "bar",
                 "created_at": "",
                 "votes": 0,
-                "mood": null
+                "email": "test@email.com",
+                "category": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -132,8 +138,8 @@ module VotingApp
 
       context 'When promoted state' do
         before do
-          Request.create(description: 'foo')
-          Request.create(description: 'bar').promote!
+          Request.create(description: 'foo', user_id: user.id)
+          Request.create(description: 'bar', user_id: user.id).promote!
         end
 
         it 'shows promoted requests list' do
@@ -146,7 +152,8 @@ module VotingApp
                 "description": "bar",
                 "created_at": "",
                 "votes": 0,
-                "mood": null
+                "email": "test@email.com",
+                "category": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -156,8 +163,8 @@ module VotingApp
 
       context 'When rejected state' do
         before do
-          Request.create(description: 'foo')
-          s = Request.create(description: 'bar')
+          Request.create(description: 'foo', user_id: user.id)
+          s = Request.create(description: 'bar', user_id: user.id)
           s.promote!
           s.reject!
         end
@@ -172,7 +179,8 @@ module VotingApp
                 "description": "bar",
                 "created_at": "",
                 "votes": 0,
-                "mood": null
+                "email": "test@email.com",
+                "category": null
               }]
             )
           expect(response.body).to be_json_eql(expected_response)
@@ -208,10 +216,10 @@ module VotingApp
     #end
 
     describe 'GET :show' do
-
+      let(:user) { User.create(email:'test@email.com') }
       context 'When request exists' do
         before do
-          Request.create(description: 'foo')
+          Request.create(description: 'foo', user_id: user.id)
         end
 
         it 'shows a given request in detail' do
@@ -224,7 +232,8 @@ module VotingApp
               "created_at": "",
               "accepted_at": null,
               "votes": 0,
-              "mood": null
+              "email": "test@email.com",
+              "category": null
             }
           )
           expect(response.body).to be_json_eql expected_response

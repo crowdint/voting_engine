@@ -5,13 +5,15 @@ module VotingApp
   class Request < ActiveRecord::Base
     include Notifications
 
-    attr_accessible :accepted_at, :description, :user_id, :mood
+    attr_accessible :accepted_at, :description, :user_id, :category
 
     belongs_to :user
 
     validates :description, presence: true
 
     after_update :promote_request
+
+    delegate :email, to: :user, allow_nil: nil
 
     acts_as_votable
 
