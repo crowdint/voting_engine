@@ -241,8 +241,9 @@ module VotingApp
       end
 
       context "When request doesn't exist" do
-        it 'should throw ActiveRecord::RecordNotFound Exception' do
-          expect{get :show, id: 1, format: :json}.to raise_error(ActiveRecord::RecordNotFound)
+        it 'should throw RecordNotFound Exception' do
+          get :show, id: 1, format: :json
+          expect(response.status).to be 404
         end
       end
     end

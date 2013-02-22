@@ -8,9 +8,8 @@ module VotingApp
       end
 
       def perform
-        if @request.reject
-          @request.notify_rejected @options
-        end
+        @request.reject!
+        @request.notify_rejected @options
       end
     end
   end

@@ -4,7 +4,6 @@ module VotingApp
     def index
       state = params[:state] || 'submitted'
       @requests = Request.send(state).page params[:page] || 1
-      render status: :not_found, nothing: true if @requests.empty?
     end
 
     def show
@@ -13,13 +12,9 @@ module VotingApp
 
     def create
       params[:request].merge!({ user_id: current_user.id })
-      @request = Request.create params[:request]
-      if @request
-        @request.notify_created(params)
-        render status: :created
-      else
-        render status: :unprocessable_entity
-      end
+      @request = Request.create! params[:request]
+      @request.notify_created(params)
+      render status: :created
     end
 
     #def update

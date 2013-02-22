@@ -8,9 +8,8 @@ module VotingApp
       end
 
       def perform
-        if @request.liked_by @user
-          @request.notify_liked @options
-        end
+        @request.liked_by @user
+        @request.notify_liked @options
       end
     end
   end
