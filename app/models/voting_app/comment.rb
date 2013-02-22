@@ -4,5 +4,7 @@ module VotingApp
 
     belongs_to :user
     belongs_to :request
+
+    validates :comment, presence: true
   end
 end

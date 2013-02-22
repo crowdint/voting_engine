@@ -76,14 +76,15 @@ module VotingApp
         before do
           Request.should_receive(:find).and_return request
           controller.should_receive(:current_user).and_return user
-          post :create, request_id: 1, format: :json, request_action: 'comment', comment: 'foo'
         end
 
         it 'Increment the request comments count' do
+          post :create, request_id: 1, format: :json, request_action: 'comment', comment: 'foo'
           expect(request.comments.count).to be 1
         end
 
         it 'response should contain the new comment' do
+          post :create, request_id: 1, format: :json, request_action: 'comment', comment: 'foo'
           expected_response = %(
             {
               "comments": [
@@ -93,6 +94,11 @@ module VotingApp
             }
           )
           expect(response.body).to be_json_eql expected_response
+        end
+
+        it 'returns an error when the comment is empty' do
+          post :create, request_id: 1, format: :json, request_action: 'comment', comment: ''
+          expect(response.status).to be 422
         end
       end
     end
