@@ -9,6 +9,8 @@ module VotingApp
 
     belongs_to :user
 
+    has_many :comments
+
     validates :description, presence: true
 
     after_update :promote_request

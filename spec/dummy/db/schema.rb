@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220181011) do
+ActiveRecord::Schema.define(:version => 20130222183014) do
 
   create_table "votes", :force => true do |t|
     t.integer  "votable_id"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(:version => 20130220181011) do
   add_index "votes", ["votable_id", "votable_type"], :name => "index_votes_on_votable_id_and_votable_type"
   add_index "votes", ["voter_id", "voter_type", "vote_scope"], :name => "index_votes_on_voter_id_and_voter_type_and_vote_scope"
   add_index "votes", ["voter_id", "voter_type"], :name => "index_votes_on_voter_id_and_voter_type"
+
+  create_table "voting_app_comments", :force => true do |t|
+    t.text     "comment"
+    t.integer  "user_id"
+    t.integer  "request_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "voting_app_requests", :force => true do |t|
     t.text     "description"

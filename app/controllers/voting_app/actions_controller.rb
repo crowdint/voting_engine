@@ -10,7 +10,7 @@ module VotingApp
     private
 
     def authorize_action!
-      if params[:request_action] != 'vote' && !current_user.admin?
+      if !%(vote comment).include?(params[:request_action]) && !current_user.admin?
         render status: :unauthorized, nothing: true
       end
     end

@@ -71,6 +71,30 @@ module VotingApp
           expect(response.status).to be 401
         end
       end
+
+      context 'When commenting a request' do
+        before do
+          Request.should_receive(:find).and_return request
+          controller.should_receive(:current_user).and_return user
+          post :create, request_id: 1, format: :json, request_action: 'comment', comment: 'foo'
+        end
+
+        it 'Increment the request comments count' do
+          expect(request.comments.count).to be 1
+        end
+
+        it 'response should contain the new comment' do
+          expected_response = %(
+            {
+              "comments": [
+                { "comment": "foo", "user_id": #{user.id} }
+              ],
+              "votes": 0
+            }
+          )
+          expect(response.body).to be_json_eql expected_response
+        end
+      end
     end
 
     describe 'POST :create as admin user' do

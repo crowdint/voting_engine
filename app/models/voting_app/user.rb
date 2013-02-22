@@ -6,6 +6,8 @@ module VotingApp
 
     has_many :requests
 
+    has_many :comments
+
     acts_as_voter
 
   end
