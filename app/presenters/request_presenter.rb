@@ -1,6 +1,6 @@
 class RequestPresenter < SimpleDelegator
   def can_vote?(u)
-    self.user.id != u.id && !self.user.voted_on?(self)
+    self.user.id != u.id && !self.user.voted_on?(__getobj__)
   end
 
   def liked_by user
