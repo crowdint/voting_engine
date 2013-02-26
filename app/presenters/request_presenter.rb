@@ -1,6 +1,5 @@
 class RequestPresenter < SimpleDelegator
   def can_vote?(u)
-    binding.pry
     self.user.id != u.id && u.voted_on?(__getobj__)
   end
 
