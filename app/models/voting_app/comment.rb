@@ -6,5 +6,7 @@ module VotingApp
     belongs_to :request
 
     validates :comment, presence: true
+
+    delegate :name, to: :user, allow_nil: nil
   end
 end
