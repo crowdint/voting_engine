@@ -12,7 +12,7 @@ module VotingApp
     end
 
     describe 'POST :create' do
-      let(:user) { User.create(email:'test@email.com')}
+      let(:user) { User.create(name:'test')}
 
       before do
         controller.stub current_user: user
@@ -29,7 +29,7 @@ module VotingApp
           "created_at": "",
           "accepted_at": null,
           "votes": 0,
-          "email": "test@email.com",
+          "name": "test",
           "category": null
         }
       )
@@ -44,7 +44,7 @@ module VotingApp
     end
 
     describe 'GET :index' do
-      let(:user) { User.create(email:'test@email.com')}
+      let(:user) { User.create(name:'test')}
       context 'Without explicit state' do
         before do
           Request.create(description: 'foo', user_id: user.id)
@@ -62,7 +62,7 @@ module VotingApp
               "created_at": "",
               "accepted_at": null,
               "votes": 0,
-              "email": "test@email.com",
+              "name": "test",
               "category": null
             },
             {
@@ -72,7 +72,7 @@ module VotingApp
               "created_at": "",
               "accepted_at": null,
               "votes": 0,
-              "email": "test@email.com",
+              "name": "test",
               "category": null
             }]
           )
@@ -99,7 +99,7 @@ module VotingApp
                 "state": "accepted",
                 "created_at": "",
                 "votes": 0,
-                "email": "test@email.com",
+                "name": "test",
                 "category": null
               }]
             )
@@ -127,7 +127,7 @@ module VotingApp
                 "description": "bar",
                 "created_at": "",
                 "votes": 0,
-                "email": "test@email.com",
+                "name": "test",
                 "category": null
               }]
             )
@@ -152,7 +152,7 @@ module VotingApp
                 "description": "bar",
                 "created_at": "",
                 "votes": 0,
-                "email": "test@email.com",
+                "name": "test",
                 "category": null
               }]
             )
@@ -179,7 +179,7 @@ module VotingApp
                 "description": "bar",
                 "created_at": "",
                 "votes": 0,
-                "email": "test@email.com",
+                "name": "test",
                 "category": null
               }]
             )
@@ -216,7 +216,7 @@ module VotingApp
     #end
 
     describe 'GET :show' do
-      let(:user) { User.create(email:'test@email.com') }
+      let(:user) { User.create(name:'test') }
       context 'When request exists' do
         before do
           Request.create(description: 'foo', user_id: user.id)
@@ -232,7 +232,7 @@ module VotingApp
               "created_at": "",
               "accepted_at": null,
               "votes": 0,
-              "email": "test@email.com",
+              "name": "test",
               "category": null
             }
           )
