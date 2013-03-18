@@ -60,6 +60,13 @@ module VotingApp
 
     end
 
+    def supporters
+      supporters = []
+      comments.each { |c| supporters << c.user.email }
+      supporters << user.email
+      supporters.uniq!
+    end
+
     class << self
 
       def accepted
@@ -94,13 +101,6 @@ module VotingApp
 
     def enough_votes?
       votes.size >= Engine.config.votes_limit
-    end
-
-    def supporters
-      supporters = []
-      comments.each { |c| supporters << c.user.email }
-      supporters << user.email
-      supporters.uniq!
     end
   end
 end
