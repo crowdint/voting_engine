@@ -43,7 +43,7 @@ module VotingApp
 
     def notify_commented(options = {})
       notification = Notification.new self, options
-      self.class.notify_observers :notify_commen, notification
+      self.class.notify_observers :notify_commented, notification
     end
   end
 end
