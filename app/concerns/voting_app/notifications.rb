@@ -26,11 +26,6 @@ module VotingApp
       self.class.notify_observers :notify_created, notification
     end
 
-    def notify_liked(options = {})
-      notification = Notification.new self, options
-      self.class.notify_observers :notify_liked, notification
-    end
-
     def notify_promoted(options = {})
       notification = Notification.new self, options
       self.class.notify_observers :notify_promoted, notification
@@ -39,6 +34,16 @@ module VotingApp
     def notify_rejected(options = {})
       notification = Notification.new self, options
       self.class.notify_observers :notify_rejected, notification
+    end
+
+    def notify_liked(options = {})
+      notification = Notification.new self, options
+      self.class.notify_observers :notify_liked, notification
+    end
+
+    def notify_commented(options = {})
+      notification = Notification.new self, options
+      self.class.notify_observers :notify_commen, notification
     end
   end
 end
