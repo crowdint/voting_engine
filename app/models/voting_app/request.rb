@@ -60,11 +60,22 @@ module VotingApp
 
     end
 
+    def commenters
+      commenters = []
+      comments.each { |c| commenters << c.user.email }
+      commenters << user.email
+      commenters.uniq!
+    end
+
     def supporters
       supporters = []
-      comments.each { |c| supporters << c.user.email }
-      supporters << user.email
+      likes.each { |l| supporters << l.voter.name }
       supporters.uniq!
+    end
+
+    def involved_users
+      involved = supporters + users_commented
+      involved.uniq!
     end
 
     class << self
