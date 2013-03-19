@@ -74,7 +74,7 @@ module VotingApp
     end
 
     def involved_users
-      involved = supporters + users_commented
+      involved = supporters + commenters
       involved.uniq!
     end
 
