@@ -16,6 +16,7 @@ module VotingApp
     after_update :promote_request
 
     delegate :name, to: :user, allow_nil: nil
+    delegate :email, to: :user, allow_nil: nil
 
     acts_as_votable
 
@@ -63,13 +64,13 @@ module VotingApp
     def commenters
       commenters = []
       comments.each { |c| commenters << c.user.email }
-      commenters << user.email
-      commenters.uniq!
+      commenters.uniq! || []
     end
 
     def supporters
       supporters = []
       likes.each { |l| supporters << l.voter.name }
+      supporters << email
       supporters.uniq!
     end
 
