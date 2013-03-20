@@ -26,6 +26,7 @@ module VotingApp
       state :promoted
       state :rejected
       state :submitted
+      state :timed_out
 
       before_transition on: :accept do |request, transition|
         request.accepted_at ||= Time.now
@@ -43,6 +44,10 @@ module VotingApp
         request.rejected_at ||= Time.now
       end
 
+      before_transition on: :time_out do |request, transition|
+        request.rejected_at ||= Time.now
+      end
+
       event :accept do
         transition promoted: :accepted
       end
@@ -57,6 +62,10 @@ module VotingApp
 
       event :reject do
         transition promoted: :rejected
+      end
+
+      event :time_out do
+        transition submitted: :timed_out
       end
 
     end
@@ -105,6 +114,10 @@ module VotingApp
 
       def submitted
         with_state(:submitted).order('created_at DESC')
+      end
+
+      def timed_out
+        with_state(:timed_out).order('created_at DESC')
       end
 
       def processed
