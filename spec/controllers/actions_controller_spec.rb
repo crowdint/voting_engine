@@ -88,7 +88,7 @@ module VotingApp
           expected_response = %(
             {
               "comments": [
-                { "comment": "foo", "user_id": #{user.id} }
+                { "comment": "foo", "user_id": #{user.id}, "name": null }
               ],
               "votes": 0
             }
