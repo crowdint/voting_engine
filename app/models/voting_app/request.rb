@@ -79,7 +79,7 @@ module VotingApp
     def supporters
       supporters = []
       likes.each { |l| supporters << l.voter.name }
-      supporters.uniq
+      supporters.uniq.sort
     end
 
     def supporters_emails
