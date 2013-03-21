@@ -13,7 +13,7 @@ module VotingApp
 
     def notify_accepted(options = {})
       notification = Notification.new self, options
-      self.class.notify_observers :notify_accepted, notification
+      self.class.notify_observers :notify_accepted, options[:user], notification
     end
 
     def notify_completed(options = {})

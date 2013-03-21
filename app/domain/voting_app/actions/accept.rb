@@ -9,6 +9,7 @@ module VotingApp
 
       def perform
         @request.accept!
+        @options.merge! user: @user
         @request.notify_accepted @options
       end
     end
