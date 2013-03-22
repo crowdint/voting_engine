@@ -3,7 +3,7 @@ VotingApp::Engine.routes.draw do
 
   resources :requests, format: :json do
     match ':request_action', to: 'actions#create', format: :json,
-      constraints: { request_action: /(vote|accept|reject|complete|comment)/ },
+      constraints: { request_action: /(vote|promote|accept|reject|complete|comment)/ },
       via: :post,
       as: 'actions'
   end
