@@ -97,31 +97,31 @@ module VotingApp
     class << self
 
       def accepted
-        with_state(:accepted).order('accepted_at DESC')
+        with_state(:accepted).order('accepted_at ASC')
       end
 
       def done
-        with_state(:done).order('done_at DESC')
+        with_state(:done).order('done_at ASC')
       end
 
       def promoted
-        with_state(:promoted).order('promoted_at DESC')
+        with_state(:promoted).order('promoted_at ASC')
       end
 
       def rejected
-        with_state(:rejected).order('rejected_at DESC')
+        with_state(:rejected).order('rejected_at ASC')
       end
 
       def submitted
-        with_state(:submitted).order('created_at DESC')
+        with_state(:submitted).order('created_at ASC')
       end
 
       def timed_out
-        with_state(:timed_out).order('created_at DESC')
+        with_state(:timed_out).order('created_at ASC')
       end
 
       def processed
-        without_state(:submitted).order('created_at DESC')
+        without_state(:submitted).order('created_at ASC')
       end
 
     end
