@@ -187,6 +187,31 @@ module VotingApp
           response.body['votes'].to_i.should_not < 0
         end
       end
+
+      describe 'when filters provided' do
+        before do
+          Request.create(description: 'foo', category: 'office', user_id: user.id)
+          Request.create(description: 'foo2', category: 'office', user_id: user.id).promote!
+          Request.create(description: 'foo3', category: 'software', user_id: user.id).promote!
+        end
+
+        context 'when filtered by submitted with category-office from last-month' do
+          it "should show only the requests that match the filter" do
+            get :index, format: :json, time: 'month', category: 'office'
+            expected_response = %(
+              [{
+                "id": 2,
+                "state": "promoted",
+                "description": "foo2",
+                "votes": 0,
+                "name": "test",
+                "category": "office"
+              }]
+            )
+          expect(response.body).to be_json_eql(expected_response)
+          end
+        end
+      end
     end
 
     #describe 'PUT :update' do

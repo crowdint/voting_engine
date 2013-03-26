@@ -18,6 +18,14 @@ module VotingApp
     delegate :name, to: :user, allow_nil: nil
     delegate :email, to: :user, allow_nil: nil
 
+    scope :in_last_month, :conditions => [ "created_at > ?", 1.month.ago ]
+    scope :in_last_year, :conditions => [ "created_at > ?", 1.year.ago ]
+    scope :office, :conditions => { :category => "office" }
+    scope :software, :conditions => { :category => "software" }
+    scope :hardware, :conditions => { :category => "hardware" }
+    scope :equipment, :conditions => { :category => "equipment" }
+    scope :food, :conditions => { :category => "food" }
+
     acts_as_votable
 
     state_machine initial: :submitted do

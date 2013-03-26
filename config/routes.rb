@@ -8,8 +8,10 @@ VotingApp::Engine.routes.draw do
       as: 'actions'
   end
 
-  match 'requests/:state', to: 'requests#index', format: :json,
-    constraints: { state: /(accepted|done|promoted|rejected|processed)/ },
+  match 'requests/:state/:time/:category', to: 'requests#index', format: :json,
+    constraints: { state: /(accepted|done|promoted|rejected|processed)/,
+                  time: /(month|year|all)/,
+                  category: /office|hardware|software|equipment|food/ },
     as: 'submissions_by_state',
     via: :get
 
