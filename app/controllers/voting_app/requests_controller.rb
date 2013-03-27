@@ -24,10 +24,10 @@ module VotingApp
     end
 
     private
-    
+
     def filter_requests(time, category)
       @requests = Request.where(state: ['promoted','accepted', 'rejected', 'done'])
-      @requests = @requests.send(category)
+      @requests = @requests.send(category) unless category == 'all'
       @requests = @requests.send("in_last_" + time) unless time == 'all'
       @requests
     end
