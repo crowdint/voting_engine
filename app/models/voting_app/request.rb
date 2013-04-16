@@ -45,6 +45,7 @@ module VotingApp
       end
 
       before_transition on: :promote do |request, transition|
+        request.notify_promoted
         request.promoted_at ||= Time.now
       end
 
