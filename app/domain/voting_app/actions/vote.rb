@@ -9,6 +9,7 @@ module VotingApp
 
       def perform
         @request.liked_by @user
+        @request.touch
         @request.notify_liked @options
       end
     end

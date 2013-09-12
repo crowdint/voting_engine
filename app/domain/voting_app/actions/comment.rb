@@ -9,6 +9,7 @@ module VotingApp
 
       def perform
         @request.comments.create! comment: @options[:comment], user: @user
+        @request.touch
         @request.notify_commented @options
       end
     end

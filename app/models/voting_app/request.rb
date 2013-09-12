@@ -131,6 +131,10 @@ module VotingApp
         includes(:comments, :user, :votes).without_state(:submitted).order('created_at ASC')
       end
 
+      def cache_key
+        [count, maximum(:updated_at).try(:utc).try(:to_s, :number)]
+      end
+
     end
 
     def promote_request
