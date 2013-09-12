@@ -86,9 +86,7 @@ module VotingApp
     end
 
     def supporters
-      supporters = []
-      likes.each { |l| supporters << l.voter.name }
-      supporters.uniq.sort
+      votes.map { |v| v.voter.name }.uniq.sort
     end
 
     def supporters_emails
@@ -106,31 +104,31 @@ module VotingApp
     class << self
 
       def accepted
-        with_state(:accepted).order('accepted_at ASC')
+        includes(:comments, :user, :votes).with_state(:accepted).order('accepted_at ASC')
       end
 
       def done
-        with_state(:done).order('done_at ASC')
+        includes(:comments, :user, :votes).with_state(:done).order('done_at ASC')
       end
 
       def promoted
-        with_state(:promoted).order('promoted_at ASC')
+        includes(:comments, :user, :votes).with_state(:promoted).order('promoted_at ASC')
       end
 
       def rejected
-        with_state(:rejected).order('rejected_at ASC')
+        includes(:comments, :user, :votes).with_state(:rejected).order('rejected_at ASC')
       end
 
       def submitted
-        with_state(:submitted).order('created_at ASC')
+        includes(:comments, :user, :votes).with_state(:submitted).order('created_at ASC')
       end
 
       def timed_out
-        with_state(:timed_out).order('created_at ASC')
+        includes(:comments, :user, :votes).with_state(:timed_out).order('created_at ASC')
       end
 
       def processed
-        without_state(:submitted).order('created_at ASC')
+        includes(:comments, :user, :votes).without_state(:submitted).order('created_at ASC')
       end
 
     end
